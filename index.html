@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossary Episode 6: รู้ทันใบหน้าและเสียงปลอม (Deepfake)</title>
+<style>
+  :root{
+    --teal-dark:#0f3d3d;
+    --teal:#145454;
+    --teal-light:#1c6b6b;
+    --gold:#ffe08a;
+    --pink:#e0175a;
+    --bg:#f4f9f8;
+    --red:#e0542e;
+    --green:#2f7a4d;
+    --amber:#c99a1c;
+    --blue:#2a6fb3;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family:'Noto Sans Thai','Sarabun',sans-serif;
+    background:var(--bg);
+    color:#1c1c1c;
+    line-height:1.65;
+  }
+  a{color:var(--teal-light);}
+
+  /* header */
+  header{
+    background:linear-gradient(120deg,var(--teal-dark) 0%, var(--teal) 45%, var(--teal-light) 100%);
+    color:#fff;
+    padding:56px 24px 46px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(30deg, rgba(255,255,255,0.04) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.04) 87.5%, rgba(255,255,255,0.04)),
+      linear-gradient(150deg, rgba(255,255,255,0.04) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.04) 87.5%, rgba(255,255,255,0.04));
+    background-size:60px 104px;
+  }
+  .badge{
+    display:inline-block;
+    background:#0a2a2a;
+    color:var(--gold);
+    font-style:italic;
+    font-weight:700;
+    font-size:14px;
+    padding:6px 18px;
+    border-radius:20px;
+    margin-bottom:18px;
+    position:relative;
+  }
+  header h1{
+    font-size:clamp(26px,5vw,42px);
+    font-weight:900;
+    position:relative;
+    margin-bottom:8px;
+  }
+  header p.sub{
+    font-size:clamp(14px,2.4vw,18px);
+    color:#cfe9e6;
+    font-weight:400;
+    position:relative;
+    max-width:640px;
+    margin:0 auto;
+  }
+
+  /* nav */
+  nav{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    background:#fff;
+    padding:14px 20px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    position:sticky; top:0; z-index:10;
+  }
+  nav a{
+    text-decoration:none;
+    color:var(--teal-dark);
+    font-weight:700;
+    font-size:14px;
+    padding:8px 16px;
+    border-radius:20px;
+    border:1.5px solid var(--teal-dark)33;
+    transition:.2s;
+  }
+  nav a:hover{ background:var(--teal-dark); color:#fff; }
+
+  main{ max-width:900px; margin:0 auto; padding:40px 20px 80px; }
+
+  section.intro{
+    text-align:center;
+    margin-bottom:48px;
+  }
+  section.intro p{
+    font-size:16px;
+    color:#3a3a3a;
+    max-width:680px;
+    margin:0 auto;
+  }
+
+  h2.section-title{
+    font-size:26px;
+    font-weight:900;
+    color:var(--teal-dark);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:56px 0 24px;
+    scroll-margin-top:80px;
+  }
+  h2.section-title span.line{
+    flex:1;
+    height:3px;
+    background:linear-gradient(90deg,var(--teal-dark),transparent);
+    border-radius:3px;
+  }
+
+  /* glossary cards */
+  .glossary-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:640px){ .glossary-grid{ grid-template-columns:1fr; } }
+
+  .term-card{
+    background:#fff;
+    border-radius:16px;
+    padding:22px 24px;
+    box-shadow:0 3px 14px rgba(15,60,60,0.08);
+    border-left:6px solid var(--accent, var(--teal-light));
+  }
+  .term-card .emoji{ font-size:26px; margin-bottom:8px; display:block; }
+  .term-card h3{ font-size:19px; color:var(--teal-dark); margin-bottom:8px; }
+  .term-card p{ font-size:15px; color:#444; }
+
+  /* use case cards */
+  .case-card{
+    background:#fff;
+    border-radius:18px;
+    padding:0;
+    margin-bottom:26px;
+    overflow:hidden;
+    box-shadow:0 4px 16px rgba(15,60,60,0.09);
+  }
+  .case-head{
+    background:var(--accent, var(--teal-light));
+    color:#fff;
+    padding:16px 24px;
+    font-size:19px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .case-body{ padding:22px 26px; }
+  .case-body h4{
+    font-size:14px;
+    font-weight:800;
+    color:var(--red);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:8px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .case-body h4.fix{ color:var(--green); margin-top:18px; }
+  .case-body ul{ list-style:none; }
+  .case-body li{
+    font-size:15.5px;
+    color:#333;
+    margin-bottom:8px;
+    padding-left:26px;
+    position:relative;
+  }
+  .case-body li::before{
+    content:"📌";
+    position:absolute; left:0; top:0;
+  }
+  .case-body li.fix::before{ content:"✅"; }
+
+  /* stat callout */
+  .callout{
+    background:linear-gradient(120deg,var(--teal-dark),var(--teal-light));
+    color:#fff;
+    border-radius:18px;
+    padding:26px 30px;
+    text-align:center;
+    font-size:16px;
+    line-height:1.8;
+    margin:50px 0;
+  }
+  .callout b{ color:var(--gold); }
+
+  footer{
+    background:var(--teal-dark);
+    color:#fff;
+    text-align:center;
+    padding:32px 20px;
+    font-size:14px;
+  }
+  footer .bks{
+    display:inline-block;
+    background:var(--pink);
+    font-weight:900;
+    font-size:18px;
+    padding:6px 16px;
+    border-radius:8px;
+    margin-top:10px;
+  }
+  footer .bks span{ display:block; font-size:11px; font-weight:600; opacity:.85; }
+
+  .accent-1{ --accent:var(--red); }
+  .accent-2{ --accent:var(--green); }
+  .accent-3{ --accent:var(--amber); }
+  .accent-4{ --accent:var(--blue); }
+  .accent-5{ --accent:#8a4fb3; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Episode 6/5</div>
+  <h1>📚 หน้าคุ้น เสียงคุ้น...ไม่ได้แปลว่าใช่</h1>
+  <p class="sub">Glossary Episode 6: รู้ทันใบหน้าและเสียงปลอม (Deepfake &amp; Synthetic Attacks) — เทคโนโลยีสารสนเทศ | ฝ่ายพัฒนาองค์กร</p>
+</header>
+
+<nav>
+  <a href="#glossary">คำจำกัดความ</a>
+  <a href="#cases">กรณีศึกษา &amp; วิธีแก้ไข</a>
+  <a href="#signs">4 จุดสังเกต</a>
+</nav>
+
+<main>
+
+  <section class="intro">
+    <p>Deepfake คือเทคโนโลยี AI ที่สร้างภาพ วิดีโอ หรือเสียงปลอมให้เหมือนคนจริงได้อย่างแนบเนียน ปัจจุบันถูกนำมาใช้หลอกลวงในองค์กรมากขึ้น โดยเฉพาะการแอบอ้างเป็นผู้บริหารเพื่อขอให้โอนเงินหรือเปิดเผยข้อมูลลับ หน้านี้รวบรวมคำศัพท์และกรณีศึกษาที่ควรรู้ เพื่อให้ทุกคนรู้ทันก่อนตกเป็นเหยื่อ</p>
+  </section>
+
+  <h2 class="section-title" id="glossary">🔤 คำจำกัดความ (Glossary)<span class="line"></span></h2>
+  <div class="glossary-grid">
+    <div class="term-card accent-1">
+      <span class="emoji">🎭</span>
+      <h3>Deepfake (ดีปเฟก)</h3>
+      <p>ภาพ วิดีโอ หรือเสียงที่สร้างขึ้นโดย AI ให้เหมือนบุคคลจริง ทั้งหน้าตา น้ำเสียง และท่าทาง จนแยกไม่ออกด้วยตาเปล่า</p>
+    </div>
+    <div class="term-card accent-2">
+      <span class="emoji">🗣️</span>
+      <h3>Voice Cloning (โคลนเสียง)</h3>
+      <p>เทคนิคเลียนแบบน้ำเสียงของบุคคลจากตัวอย่างเสียงสั้นๆ เพียงไม่กี่วินาที เพื่อนำไปใช้พูดข้อความใดก็ได้</p>
+    </div>
+    <div class="term-card accent-3">
+      <span class="emoji">💼</span>
+      <h3>CEO Fraud / BEC</h3>
+      <p>การแอบอ้างเป็นผู้บริหารระดับสูง (Business Email Compromise) เพื่อหลอกให้พนักงานโอนเงินหรือเปิดเผยข้อมูลสำคัญ</p>
+    </div>
+    <div class="term-card accent-4">
+      <span class="emoji">🪪</span>
+      <h3>Synthetic Identity</h3>
+      <p>ตัวตนปลอมที่สร้างขึ้นจากการผสมข้อมูลจริงและปลอมเข้าด้วยกัน ใช้สร้างความน่าเชื่อถือในการหลอกลวง</p>
+    </div>
+    <div class="term-card accent-5">
+      <span class="emoji">📞</span>
+      <h3>Vishing (วิชชิง)</h3>
+      <p>การหลอกลวงทางโทรศัพท์หรือวิดีโอคอล มักใช้ร่วมกับเสียงหรือภาพปลอมเพื่อเพิ่มความน่าเชื่อถือ</p>
+    </div>
+    <div class="term-card accent-1">
+      <span class="emoji">✅</span>
+      <h3>Callback Protocol</h3>
+      <p>ขั้นตอนยืนยันตัวตนโดยวางสายแล้วโทรกลับด้วยเบอร์ที่บันทึกไว้ล่วงหน้าเท่านั้น ไม่ใช้เบอร์ที่ผู้โทรให้มา</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    เสียงคนแค่ <b>3 วินาที</b> จากคลิปสาธารณะก็เพียงพอสำหรับการโคลนเสียงแล้ว และในปี 2026 มีเคสจริงที่บริษัทสูญเงินถึง <b>25.6 ล้านดอลลาร์</b> จากวิดีโอคอลที่ "ผู้บริหาร" ทุกคนในสายเป็น Deepfake ทั้งหมด
+  </div>
+
+  <h2 class="section-title" id="cases">🧩 กรณีศึกษาและวิธีแก้ไข (Use Cases &amp; Solutions)<span class="line"></span></h2>
+
+  <div class="case-card accent-1">
+    <div class="case-head">🎭 Deepfake วิดีโอคอลผู้บริหาร</div>
+    <div class="case-body">
+      <h4>ถ้าเจอปัญหาแบบนี้ :</h4>
+      <ul>
+        <li>ได้รับวิดีโอคอลจาก "ผู้บริหาร" ขอให้โอนเงินด่วนเป็นความลับ</li>
+        <li>หน้าตาและเสียงเหมือนตัวจริงทุกอย่าง แต่สีหน้า-ปากขยับไม่ค่อยตรงจังหวะเสียง</li>
+        <li>ถูกเร่งให้ตัดสินใจเร็ว ห้ามปรึกษาใคร</li>
+      </ul>
+      <h4 class="fix">ควรแก้ไข :</h4>
+      <ul>
+        <li class="fix">วางสายก่อน แล้วโทรกลับด้วยเบอร์เดิมที่บันทึกไว้เท่านั้น</li>
+        <li class="fix">ยืนยันผ่านอีกช่องทางที่ต่างจากช่องทางเดิมเสมอ</li>
+        <li class="fix">แจ้งกองเทคโนโลยีสารสนเทศทันทีหากรู้สึกไม่ชอบมาพากล</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="case-card accent-2">
+    <div class="case-head">🗣️ เสียงโคลนทางโทรศัพท์</div>
+    <div class="case-body">
+      <h4>ถ้าเจอปัญหาแบบนี้ :</h4>
+      <ul>
+        <li>ได้รับสายจากเสียงที่เหมือนหัวหน้างานหรือผู้บริหาร ขอให้ทำธุรกรรมด่วน</li>
+        <li>น้ำเสียงราบเรียบผิดปกติ ไม่มีจังหวะหายใจตามธรรมชาติ</li>
+        <li>อ้างว่าโทรจากที่ไม่สะดวก ขอให้รีบทำตามคำสั่งโดยไม่ต้องยืนยันซ้ำ</li>
+      </ul>
+      <h4 class="fix">ควรแก้ไข :</h4>
+      <ul>
+        <li class="fix">ตั้งคำถามที่มีแต่ตัวจริงเท่านั้นตอบได้ ก่อนดำเนินการใดๆ</li>
+        <li class="fix">ห้ามอนุมัติคำขอทางการเงินจากเสียงในโทรศัพท์เพียงอย่างเดียว</li>
+        <li class="fix">ติดต่อกลับผ่านช่องทางที่รู้จักและเชื่อถือได้เสมอ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="case-card accent-3">
+    <div class="case-head">📅 นัดประชุมกะทันหันผิดปกติ</div>
+    <div class="case-body">
+      <h4>ถ้าเจอปัญหาแบบนี้ :</h4>
+      <ul>
+        <li>ถูกเชิญเข้าประชุมด่วนที่ไม่มีในตารางล่วงหน้า</li>
+        <li>คำเชิญมาจากอีเมลหรือแพลตฟอร์มที่ดูแปลกตาไปจากปกติ</li>
+        <li>ในที่ประชุมมีการขอให้อนุมัติหรือเปิดเผยข้อมูลสำคัญทันที</li>
+      </ul>
+      <h4 class="fix">ควรแก้ไข :</h4>
+      <ul>
+        <li class="fix">ตรวจสอบที่มาของคำเชิญประชุมก่อนเข้าร่วมทุกครั้ง</li>
+        <li class="fix">สอบถามผู้จัดประชุมผ่านช่องทางอื่นหากรู้สึกผิดปกติ</li>
+        <li class="fix">ห้ามข้ามขั้นตอนอนุมัติปกติแม้จะอยู่ในที่ประชุม</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section-title" id="signs">🔍 4 จุดสังเกตจับไต๋ Deepfake<span class="line"></span></h2>
+  <div class="glossary-grid">
+    <div class="term-card accent-1">
+      <span class="emoji">1️⃣</span>
+      <h3>ช่องทางแปลกๆ ที่ไม่เคยใช้มาก่อน</h3>
+      <p>จู่ๆ มีคนโทรมาแบบเห็นหน้าหรือส่งข้อความเสียง ขอให้โอนเงินหรือขอข้อมูลสำคัญ ทั้งที่ปกติไม่เคยติดต่อแบบนี้</p>
+    </div>
+    <div class="term-card accent-2">
+      <span class="emoji">2️⃣</span>
+      <h3>เร่งให้รีบตัดสินใจ + ขอให้เก็บเป็นความลับ</h3>
+      <p>พูดทำนอง "ห้ามบอกใคร" "ต้องรีบเดี๋ยวนี้" และกันไม่ให้โทรกลับเช็กกับใคร</p>
+    </div>
+    <div class="term-card accent-3">
+      <span class="emoji">3️⃣</span>
+      <h3>ภาพหรือเสียงมีอะไรแปลกๆ</h3>
+      <p>ปากขยับไม่ตรงเสียง กระพริบตาน้อยผิดปกติ หรือน้ำเสียงเรียบเกินไปไม่มีจังหวะหายใจ</p>
+    </div>
+    <div class="term-card accent-4">
+      <span class="emoji">4️⃣</span>
+      <h3>ขอในสิ่งที่ไม่เคยทำแบบนี้มาก่อน</h3>
+      <p>คนที่ปกติไม่เคยยุ่งเรื่องเงินเอง จู่ๆ มาขอเป็นการส่วนตัว หรือขอให้ข้ามขั้นตอนที่ไม่เคยอนุญาต</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  ติดตามข่าวสารผ่านช่องทาง 📘 www.facebook.com/itd.bks &nbsp;|&nbsp; 🌐 www.transport.co.th
+  <div class="bks">BKS<span>Est. 1930</span></div>
+</footer>
+
+</body>
+</html>
